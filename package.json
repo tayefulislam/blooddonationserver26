@@ -1,0 +1,28 @@
+{
+  "name": "blood-donation-server",
+  "version": "1.0.0",
+  "description": "Blood Donation Management API Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --no-deprecation index.js",
+    "dev": "nodemon --no-deprecation index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "blood",
+    "donation",
+    "api",
+    "express",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongodb": "^4.6.0",
+    "mongoose": "^6.6.5",
+    "nodemailer": "^6.9.13"
+  }
+}
