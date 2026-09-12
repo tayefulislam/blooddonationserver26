@@ -5,6 +5,7 @@ mongoose.set("strictQuery", true);
 const connectDB = require("./db/connectDB");
 const app = require("./app");
 const { closeMailer } = require("./utils/sendmail/mailer");
+const { startAggregationJob, stopAggregationJob } = require("./jobs/aggregationJob");
 
 const PORT = process.env.PORT || 5000;
 
@@ -46,6 +47,8 @@ const shutdown = (server) => async (signal) => {
   }, 10_000);
   timer.unref();
 
+  stopAggregationJob();
+
   server.close(async () => {
     // Let any queued notifications drain before dropping the SMTP connection.
     await closeMailer();
@@ -59,6 +62,8 @@ const startServer = async () => {
   checkEnv();
 
   await connectDB();
+
+  startAggregationJob();
 
   const server = app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);

@@ -102,4 +102,29 @@ router.get("/analytics", superAdminOnly, analyticsController.getAnalytics);
 const donorQueryAdminController = require("../Controllers/donorQueryAdmin.Controller");
 router.get("/donor-query", superAdminOnly, donorQueryAdminController.getStats);
 
+// Demand Analytics — super_admin only
+const analyticsDashboardController = require("../Controllers/analyticsDashboard.Controller");
+router.get("/analytics/overview", superAdminOnly, analyticsDashboardController.getOverview);
+router.get("/analytics/blood-demand", superAdminOnly, analyticsDashboardController.getBloodDemand);
+router.get("/analytics/areas", superAdminOnly, analyticsDashboardController.getLocationAnalytics);
+router.get("/analytics/time", superAdminOnly, analyticsDashboardController.getTimeAnalytics);
+router.get("/analytics/user-activity", superAdminOnly, analyticsDashboardController.getUserActivity);
+
+// Predictions — super_admin only
+const predictionController = require("../Controllers/prediction.Controller");
+router.get("/predictions/blood-demand", superAdminOnly, predictionController.getBloodDemandPredictions);
+router.get("/predictions/areas", superAdminOnly, predictionController.getAreaPredictions);
+router.get("/predictions/summary", superAdminOnly, predictionController.getSummary);
+
+// Settings — super_admin only
+const adminSettingController = require("../Controllers/adminSetting.Controller");
+router.get("/settings", superAdminOnly, adminSettingController.getSettings);
+router.put("/settings", superAdminOnly, adminSettingController.updateSetting);
+
+// AI Service — super_admin only
+const aiController = require("../Controllers/ai.Controller");
+router.get("/ai/providers", superAdminOnly, aiController.getProviderStatus);
+router.post("/ai/test-connection", superAdminOnly, aiController.testConnection);
+router.get("/ai/usage-stats", superAdminOnly, aiController.getUsageStats);
+
 module.exports = router;
