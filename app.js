@@ -10,7 +10,15 @@ const app = express();
 // Don't advertise the framework in every response.
 app.disable("x-powered-by");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://blooddonationen1.web.app",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(requestLogger);
 app.use(trackRequest);
