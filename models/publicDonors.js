@@ -45,6 +45,33 @@ const PublicDonorsSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
+    alternativePhone: {
+      type: String,
+      trim: true,
+    },
+    address: {
+      type: String,
+      trim: true,
+    },
+    dateOfBirth: {
+      type: String,
+    },
+    availability: {
+      type: Boolean,
+      default: true,
+    },
+    profilePhoto: {
+      type: String,
+      trim: true,
+    },
+    createdBy: {
+      type: String,
+      trim: true,
+    },
+    updatedBy: {
+      type: String,
+      trim: true,
+    },
   },
   {
     timestamps: true,
@@ -54,6 +81,10 @@ const PublicDonorsSchema = mongoose.Schema(
 // GET /api/v2/publicDonors always filters on status + gender, and optionally on
 // group + district.
 PublicDonorsSchema.index({ status: 1, gender: 1, group: 1, district: 1 });
+PublicDonorsSchema.index({ name: 1 });
+PublicDonorsSchema.index({ district: 1, status: 1 });
+PublicDonorsSchema.index({ group: 1, status: 1 });
+PublicDonorsSchema.index({ status: 1, createdAt: -1 });
 
 const PublicDonors = mongoose.model(
   "PublicDonors",

@@ -8,6 +8,7 @@ const {
 
 exports.createPublicDonors = catchAsync(
   async (req, res) => {
+    req.body.createdBy = "self";
     const result = await createPublicDonorsServices(req.body);
     res.status(200).json(result);
   },

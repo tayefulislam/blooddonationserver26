@@ -33,7 +33,7 @@ const DonorShema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "user"],
+      enum: ["super_admin", "admin", "user"],
       default: "user",
     },
     lastDonation: {
@@ -45,6 +45,25 @@ const DonorShema = mongoose.Schema(
       enum: ["active", "inactive"],
       default: "active",
     },
+    availability: {
+      type: Boolean,
+      default: true,
+    },
+    profilePhoto: {
+      type: String,
+      trim: true,
+    },
+    dateOfBirth: {
+      type: String,
+    },
+    createdBy: {
+      type: String,
+      trim: true,
+    },
+    updatedBy: {
+      type: String,
+      trim: true,
+    },
   },
   { timestamps: true },
 );
@@ -54,6 +73,9 @@ const DonorShema = mongoose.Schema(
 // GET /api/v1/donors/public/donorInfo?group=..&district=.. which always adds
 // role and status to the filter.
 DonorShema.index({ group: 1, district: 1, role: 1, status: 1 });
+DonorShema.index({ status: 1, createdAt: -1 });
+DonorShema.index({ name: 1 });
+DonorShema.index({ district: 1, status: 1 });
 
 const Donor = mongoose.model("Donors", DonorShema, "donors");
 module.exports = Donor;

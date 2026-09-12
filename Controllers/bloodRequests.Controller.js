@@ -8,6 +8,8 @@ const {
 
 exports.makeBloodRequests = catchAsync(
   async (req, res) => {
+    if (!req.body.status) req.body.status = "open";
+    req.body.createdBy = "self";
     const result = await makeBloodRequestsService(req.body);
     res.status(200).send(result);
   },

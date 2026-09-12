@@ -57,6 +57,19 @@ const bloodRequestSchema = mongoose.Schema(
       trim: true,
       required: [true, "Please write down your comment"],
     },
+    status: {
+      type: String,
+      enum: ["open", "fulfilled", "cancelled", "closed"],
+      default: "open",
+    },
+    createdBy: {
+      type: String,
+      trim: true,
+    },
+    updatedBy: {
+      type: String,
+      trim: true,
+    },
   },
   {
     timestamps: true,
@@ -68,6 +81,9 @@ const bloodRequestSchema = mongoose.Schema(
 // the single-field index covers `district` on its own.
 bloodRequestSchema.index({ group: 1, district: 1 });
 bloodRequestSchema.index({ district: 1 });
+bloodRequestSchema.index({ status: 1 });
+bloodRequestSchema.index({ group: 1, status: 1 });
+bloodRequestSchema.index({ createdAt: -1 });
 
 const bloodRequests = mongoose.model(
   "bloodRequests",
